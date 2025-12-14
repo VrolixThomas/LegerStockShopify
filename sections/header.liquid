@@ -4,16 +4,6 @@
       <a href="/">{{ shop.name }}</a>
     </div>
 
-    <nav class="header-nav">
-      {% if linklists.main-menu.links.size > 0 %}
-        <ul>
-          {% for link in linklists.main-menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </nav>
-
     <div class="header-cart">
       <a href="/cart">Cart ({{ cart.item_count }})</a>
     </div>
@@ -43,32 +33,14 @@
     color: #000;
   }
 
-  .header-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header-nav a {
-    text-decoration: none;
-    color: #000;
-  }
-
-  .header-nav a:hover {
-    text-decoration: underline;
-  }
-
   .header-cart a {
     text-decoration: none;
     color: #000;
+    font-weight: 500;
   }
 
-  @media (max-width: 768px) {
-    .header-nav {
-      display: none;
-    }
+  .header-cart a:hover {
+    color: #0066cc;
   }
 {% endstylesheet %}
 

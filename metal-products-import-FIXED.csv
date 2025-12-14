@@ -1,0 +1,91 @@
+Handle,Title,Body (HTML),Vendor,Tags,Published,Option1 Name,Option1 Value,Variant Price,Variant Compare At Price,Variant SKU,Status
+alu-tube,Aluminium Tube,High-quality aluminium tubes for construction and industrial use,MetalWorks,"material:aluminium, form:tube",TRUE,Dimension,20mm x 20mm x 2m,15.50,,ALU-TUB-20-2,active
+alu-tube,Aluminium Tube,,,,,Dimension,25mm x 25mm x 2m,18.90,,ALU-TUB-25-2,
+alu-tube,Aluminium Tube,,,,,Dimension,30mm x 30mm x 2m,22.50,,ALU-TUB-30-2,
+alu-tube,Aluminium Tube,,,,,Dimension,40mm x 40mm x 2m,28.75,,ALU-TUB-40-2,
+alu-tube,Aluminium Tube,,,,,Dimension,50mm x 50mm x 3m,45.00,,ALU-TUB-50-3,
+alu-tube,Aluminium Tube,,,,,Dimension,60mm x 60mm x 3m,52.50,,ALU-TUB-60-3,
+alu-lshape,Aluminium L-Shape,Aluminium angle bars ideal for structural support and framing,MetalWorks,"material:aluminium, form:l-shape",TRUE,Dimension,20mm x 20mm x 3mm x 2m,12.50,,ALU-L-20-2,active
+alu-lshape,Aluminium L-Shape,,,,,Dimension,25mm x 25mm x 3mm x 2m,15.25,,ALU-L-25-2,
+alu-lshape,Aluminium L-Shape,,,,,Dimension,30mm x 30mm x 4mm x 2m,18.90,,ALU-L-30-2,
+alu-lshape,Aluminium L-Shape,,,,,Dimension,40mm x 40mm x 5mm x 3m,28.50,,ALU-L-40-3,
+alu-lshape,Aluminium L-Shape,,,,,Dimension,50mm x 50mm x 5mm x 3m,35.75,,ALU-L-50-3,
+alu-flat,Aluminium Flat Sheet,Flat aluminium sheets for various applications,MetalWorks,"material:aluminium, form:flat",TRUE,Dimension,1000mm x 2000mm x 2mm,45.00,,ALU-FL-1-2-2,active
+alu-flat,Aluminium Flat Sheet,,,,,Dimension,1000mm x 2000mm x 3mm,62.50,,ALU-FL-1-2-3,
+alu-flat,Aluminium Flat Sheet,,,,,Dimension,1200mm x 2400mm x 2mm,58.00,,ALU-FL-12-24-2,
+alu-flat,Aluminium Flat Sheet,,,,,Dimension,1200mm x 2400mm x 3mm,78.50,,ALU-FL-12-24-3,
+alu-flat,Aluminium Flat Sheet,,,,,Dimension,1500mm x 3000mm x 4mm,145.00,,ALU-FL-15-30-4,
+alu-round,Aluminium Round Bar,Solid aluminium round bars for machining,MetalWorks,"material:aluminium, form:round",TRUE,Dimension,10mm x 2m,8.50,,ALU-RND-10-2,active
+alu-round,Aluminium Round Bar,,,,,Dimension,15mm x 2m,12.75,,ALU-RND-15-2,
+alu-round,Aluminium Round Bar,,,,,Dimension,20mm x 2m,16.50,,ALU-RND-20-2,
+alu-round,Aluminium Round Bar,,,,,Dimension,25mm x 3m,28.00,,ALU-RND-25-3,
+alu-round,Aluminium Round Bar,,,,,Dimension,30mm x 3m,38.50,,ALU-RND-30-3,
+iron-tube,Iron Tube,Heavy-duty iron tubes for structural applications,MetalWorks,"material:iron, form:tube",TRUE,Dimension,25mm x 25mm x 2m,14.50,,IRN-TUB-25-2,active
+iron-tube,Iron Tube,,,,,Dimension,30mm x 30mm x 2m,17.90,,IRN-TUB-30-2,
+iron-tube,Iron Tube,,,,,Dimension,40mm x 40mm x 2m,24.50,,IRN-TUB-40-2,
+iron-tube,Iron Tube,,,,,Dimension,50mm x 50mm x 3m,38.75,,IRN-TUB-50-3,
+iron-tube,Iron Tube,,,,,Dimension,60mm x 60mm x 3m,48.50,,IRN-TUB-60-3,
+iron-lshape,Iron L-Shape,Durable iron angle bars for construction,MetalWorks,"material:iron, form:l-shape",TRUE,Dimension,25mm x 25mm x 3mm x 2m,13.50,,IRN-L-25-2,active
+iron-lshape,Iron L-Shape,,,,,Dimension,30mm x 30mm x 4mm x 2m,16.75,,IRN-L-30-2,
+iron-lshape,Iron L-Shape,,,,,Dimension,40mm x 40mm x 5mm x 3m,25.50,,IRN-L-40-3,
+iron-lshape,Iron L-Shape,,,,,Dimension,50mm x 50mm x 6mm x 3m,34.90,,IRN-L-50-3,
+iron-lshape,Iron L-Shape,,,,,Dimension,60mm x 60mm x 6mm x 3m,42.50,,IRN-L-60-3,
+iron-flat,Iron Flat Sheet,Strong iron sheets for industrial use,MetalWorks,"material:iron, form:flat",TRUE,Dimension,1000mm x 2000mm x 3mm,52.00,,IRN-FL-1-2-3,active
+iron-flat,Iron Flat Sheet,,,,,Dimension,1000mm x 2000mm x 4mm,68.50,,IRN-FL-1-2-4,
+iron-flat,Iron Flat Sheet,,,,,Dimension,1200mm x 2400mm x 3mm,68.00,,IRN-FL-12-24-3,
+iron-flat,Iron Flat Sheet,,,,,Dimension,1200mm x 2400mm x 4mm,88.50,,IRN-FL-12-24-4,
+iron-flat,Iron Flat Sheet,,,,,Dimension,1500mm x 3000mm x 5mm,165.00,,IRN-FL-15-30-5,
+iron-tshape,Iron T-Shape,T-section iron beams for structural support,MetalWorks,"material:iron, form:t-shape",TRUE,Dimension,30mm x 30mm x 4mm x 2m,22.50,,IRN-T-30-2,active
+iron-tshape,Iron T-Shape,,,,,Dimension,40mm x 40mm x 5mm x 2m,28.75,,IRN-T-40-2,
+iron-tshape,Iron T-Shape,,,,,Dimension,50mm x 50mm x 6mm x 3m,45.50,,IRN-T-50-3,
+iron-tshape,Iron T-Shape,,,,,Dimension,60mm x 60mm x 6mm x 3m,54.00,,IRN-T-60-3,
+inox-tube,Inox Stainless Tube,Corrosion-resistant stainless steel tubes,MetalWorks,"material:inox, form:tube",TRUE,Dimension,20mm x 20mm x 2m,32.50,,INX-TUB-20-2,active
+inox-tube,Inox Stainless Tube,,,,,Dimension,25mm x 25mm x 2m,38.90,,INX-TUB-25-2,
+inox-tube,Inox Stainless Tube,,,,,Dimension,30mm x 30mm x 2m,45.50,,INX-TUB-30-2,
+inox-tube,Inox Stainless Tube,,,,,Dimension,40mm x 40mm x 2m,58.75,,INX-TUB-40-2,
+inox-tube,Inox Stainless Tube,,,,,Dimension,50mm x 50mm x 3m,92.00,,INX-TUB-50-3,
+inox-lshape,Inox Stainless L-Shape,Premium stainless steel angle bars,MetalWorks,"material:inox, form:l-shape",TRUE,Dimension,20mm x 20mm x 3mm x 2m,28.50,,INX-L-20-2,active
+inox-lshape,Inox Stainless L-Shape,,,,,Dimension,25mm x 25mm x 3mm x 2m,34.25,,INX-L-25-2,
+inox-lshape,Inox Stainless L-Shape,,,,,Dimension,30mm x 30mm x 4mm x 2m,42.90,,INX-L-30-2,
+inox-lshape,Inox Stainless L-Shape,,,,,Dimension,40mm x 40mm x 5mm x 3m,65.50,,INX-L-40-3,
+inox-lshape,Inox Stainless L-Shape,,,,,Dimension,50mm x 50mm x 5mm x 3m,82.75,,INX-L-50-3,
+inox-flat,Inox Stainless Flat Sheet,High-grade stainless steel sheets,MetalWorks,"material:inox, form:flat",TRUE,Dimension,1000mm x 2000mm x 2mm,95.00,,INX-FL-1-2-2,active
+inox-flat,Inox Stainless Flat Sheet,,,,,Dimension,1000mm x 2000mm x 3mm,135.50,,INX-FL-1-2-3,
+inox-flat,Inox Stainless Flat Sheet,,,,,Dimension,1200mm x 2400mm x 2mm,122.00,,INX-FL-12-24-2,
+inox-flat,Inox Stainless Flat Sheet,,,,,Dimension,1200mm x 2400mm x 3mm,168.50,,INX-FL-12-24-3,
+inox-flat,Inox Stainless Flat Sheet,,,,,Dimension,1500mm x 3000mm x 4mm,325.00,,INX-FL-15-30-4,
+steel-tube,Steel Tube,High-strength carbon steel tubes,MetalWorks,"material:steel, form:tube",TRUE,Dimension,25mm x 25mm x 2m,16.50,,STL-TUB-25-2,active
+steel-tube,Steel Tube,,,,,Dimension,30mm x 30mm x 2m,19.90,,STL-TUB-30-2,
+steel-tube,Steel Tube,,,,,Dimension,40mm x 40mm x 2m,27.50,,STL-TUB-40-2,
+steel-tube,Steel Tube,,,,,Dimension,50mm x 50mm x 3m,43.75,,STL-TUB-50-3,
+steel-tube,Steel Tube,,,,,Dimension,60mm x 60mm x 3m,54.50,,STL-TUB-60-3,
+steel-square,Steel Square Bar,Solid steel square bars,MetalWorks,"material:steel, form:square",TRUE,Dimension,10mm x 10mm x 2m,9.50,,STL-SQ-10-2,active
+steel-square,Steel Square Bar,,,,,Dimension,15mm x 15mm x 2m,14.75,,STL-SQ-15-2,
+steel-square,Steel Square Bar,,,,,Dimension,20mm x 20mm x 2m,19.50,,STL-SQ-20-2,
+steel-square,Steel Square Bar,,,,,Dimension,25mm x 25mm x 3m,32.00,,STL-SQ-25-3,
+steel-square,Steel Square Bar,,,,,Dimension,30mm x 30mm x 3m,44.50,,STL-SQ-30-3,
+steel-flat,Steel Flat Sheet,Premium carbon steel sheets,MetalWorks,"material:steel, form:flat",TRUE,Dimension,1000mm x 2000mm x 3mm,58.00,,STL-FL-1-2-3,active
+steel-flat,Steel Flat Sheet,,,,,Dimension,1000mm x 2000mm x 4mm,75.50,,STL-FL-1-2-4,
+steel-flat,Steel Flat Sheet,,,,,Dimension,1200mm x 2400mm x 3mm,75.00,,STL-FL-12-24-3,
+steel-flat,Steel Flat Sheet,,,,,Dimension,1200mm x 2400mm x 4mm,98.50,,STL-FL-12-24-4,
+steel-flat,Steel Flat Sheet,,,,,Dimension,1500mm x 3000mm x 5mm,185.00,,STL-FL-15-30-5,
+copper-tube,Copper Tube,Pure copper tubes for plumbing and HVAC,MetalWorks,"material:copper, form:tube",TRUE,Dimension,15mm x 2m,24.50,,COP-TUB-15-2,active
+copper-tube,Copper Tube,,,,,Dimension,22mm x 2m,32.90,,COP-TUB-22-2,
+copper-tube,Copper Tube,,,,,Dimension,28mm x 2m,42.50,,COP-TUB-28-2,
+copper-tube,Copper Tube,,,,,Dimension,35mm x 3m,68.75,,COP-TUB-35-3,
+copper-tube,Copper Tube,,,,,Dimension,42mm x 3m,82.50,,COP-TUB-42-3,
+copper-flat,Copper Flat Sheet,Premium copper sheets for roofing and electrical,MetalWorks,"material:copper, form:flat",TRUE,Dimension,1000mm x 2000mm x 1mm,125.00,,COP-FL-1-2-1,active
+copper-flat,Copper Flat Sheet,,,,,Dimension,1000mm x 2000mm x 2mm,235.50,,COP-FL-1-2-2,
+copper-flat,Copper Flat Sheet,,,,,Dimension,1200mm x 2400mm x 1mm,162.00,,COP-FL-12-24-1,
+copper-flat,Copper Flat Sheet,,,,,Dimension,1200mm x 2400mm x 2mm,298.50,,COP-FL-12-24-2,
+brass-tube,Brass Tube,Decorative brass tubes,MetalWorks,"material:brass, form:tube",TRUE,Dimension,15mm x 2m,28.50,,BRS-TUB-15-2,active
+brass-tube,Brass Tube,,,,,Dimension,20mm x 2m,36.90,,BRS-TUB-20-2,
+brass-tube,Brass Tube,,,,,Dimension,25mm x 2m,45.50,,BRS-TUB-25-2,
+brass-tube,Brass Tube,,,,,Dimension,30mm x 3m,72.75,,BRS-TUB-30-3,
+brass-round,Brass Round Bar,Solid brass round bars for precision work,MetalWorks,"material:brass, form:round",TRUE,Dimension,10mm x 2m,18.50,,BRS-RND-10-2,active
+brass-round,Brass Round Bar,,,,,Dimension,15mm x 2m,26.75,,BRS-RND-15-2,
+brass-round,Brass Round Bar,,,,,Dimension,20mm x 2m,34.50,,BRS-RND-20-2,
+brass-round,Brass Round Bar,,,,,Dimension,25mm x 3m,58.00,,BRS-RND-25-3,
+brass-flat,Brass Flat Sheet,Decorative brass sheets,MetalWorks,"material:brass, form:flat",TRUE,Dimension,1000mm x 2000mm x 1mm,145.00,,BRS-FL-1-2-1,active
+brass-flat,Brass Flat Sheet,,,,,Dimension,1000mm x 2000mm x 2mm,265.50,,BRS-FL-1-2-2,
+brass-flat,Brass Flat Sheet,,,,,Dimension,1200mm x 2400mm x 1mm,188.00,,BRS-FL-12-24-1,

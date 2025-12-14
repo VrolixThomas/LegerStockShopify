@@ -63,19 +63,29 @@
     const formFilter = document.getElementById('filter-form').value.toLowerCase();
     const products = document.querySelectorAll('.product-row');
 
-    products.forEach(product => {
-      const material = product.dataset.material?.toLowerCase() || '';
-      const form = product.dataset.form?.toLowerCase() || '';
+    console.log('Filtering:', { materialFilter, formFilter, totalProducts: products.length });
+
+    let visibleCount = 0;
+    products.forEach((product, index) => {
+      const material = (product.dataset.material || '').toLowerCase().trim();
+      const form = (product.dataset.form || '').toLowerCase().trim();
+
+      if (index < 3) {
+        console.log(`Product ${index}:`, { material, form, dataset: product.dataset });
+      }
 
       const materialMatch = !materialFilter || material === materialFilter;
       const formMatch = !formFilter || form === formFilter;
 
       if (materialMatch && formMatch) {
         product.style.display = 'grid';
+        visibleCount++;
       } else {
         product.style.display = 'none';
       }
     });
+
+    console.log('Visible products:', visibleCount);
   }
 
   function clearFilters() {
@@ -83,6 +93,16 @@
     document.getElementById('filter-form').value = '';
     filterProducts();
   }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, checking products...');
+    const products = document.querySelectorAll('.product-row');
+    console.log('Total product rows found:', products.length);
+    if (products.length > 0) {
+      console.log('First product data:', products[0].dataset);
+    }
+  });
 </script>
 
 {% stylesheet %}

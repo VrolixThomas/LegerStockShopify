@@ -18,7 +18,8 @@
   endfor
 %}
 
-<div class="product-row" data-material="{{ material }}" data-form="{{ form }}" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+<!-- Debug: Product {{ product.title }} - Tags: {{ product.tags | join: ', ' }} - Material: {{ material }} - Form: {{ form }} -->
+<div class="product-row" data-material="{{ material }}" data-form="{{ form }}" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-all-tags="{{ product.tags | join: '|' }}">
   <div class="col-product">
     <a href="{{ product.url }}" class="product-name">{{ product.title }}</a>
   </div>
