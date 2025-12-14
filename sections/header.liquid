@@ -1,0 +1,80 @@
+<header class="site-header">
+  <div class="header-content">
+    <div class="header-logo">
+      <a href="/">{{ shop.name }}</a>
+    </div>
+
+    <nav class="header-nav">
+      {% if linklists.main-menu.links.size > 0 %}
+        <ul>
+          {% for link in linklists.main-menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+
+    <div class="header-cart">
+      <a href="/cart">Cart ({{ cart.item_count }})</a>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+  .site-header {
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 20px 0;
+  }
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-logo a {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+  }
+
+  .header-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-nav a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  .header-nav a:hover {
+    text-decoration: underline;
+  }
+
+  .header-cart a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    .header-nav {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "product_list": {
+      "type": "product-list",
+      "settings": {
+        "title": "Featured Products",
+        "collection": "",
+        "products_to_show": 8
+      }
+    }
+  },
+  "order": ["product_list"]
+}
