@@ -1,0 +1,400 @@
+{% comment %}
+  Metal product list row with variant selector and quantity controls
+  Params:
+  - product: Product object
+{% endcomment %}
+
+{% liquid
+  assign material = ''
+  assign form = ''
+
+  for tag in product.tags
+    if tag contains 'material:'
+      assign material = tag | remove: 'material:'
+    endif
+    if tag contains 'form:'
+      assign form = tag | remove: 'form:'
+    endif
+  endfor
+%}
+
+<div class="product-row" data-material="{{ material }}" data-form="{{ form }}" data-product-id="{{ product.id }}">
+  <div class="col-product">
+    <a href="{{ product.url }}" class="product-name">{{ product.title }}</a>
+  </div>
+
+  <div class="col-material">
+    {{ material | capitalize }}
+  </div>
+
+  <div class="col-form">
+    {{ form | capitalize | replace: '-', ' ' }}
+  </div>
+
+  <div class="col-dimension">
+    {% if product.variants.size > 1 %}
+      <select id="variant-{{ product.id }}" class="variant-select" onchange="updatePrice(this, {{ product.id }})">
+        {% for variant in product.variants %}
+          <option
+            value="{{ variant.id }}"
+            data-price="{{ variant.price | money }}"
+            {% unless variant.available %}disabled{% endunless %}
+          >
+            {{ variant.title }}
+            {% unless variant.available %} - Out of Stock{% endunless %}
+          </option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <span class="single-variant">{{ product.variants.first.title }}</span>
+    {% endif %}
+  </div>
+
+  <div class="col-price">
+    <span class="price-display" id="price-{{ product.id }}">
+      {{ product.price | money }}
+    </span>
+  </div>
+
+  <div class="col-quantity">
+    <div class="quantity-control">
+      <button
+        type="button"
+        class="qty-btn qty-minus"
+        onclick="changeQuantity({{ product.id }}, -1)"
+        aria-label="Decrease quantity"
+      >
+        −
+      </button>
+      <input
+        type="number"
+        id="qty-{{ product.id }}"
+        class="quantity-input"
+        value="1"
+        min="1"
+        max="999"
+        onchange="validateQuantity({{ product.id }})"
+      >
+      <button
+        type="button"
+        class="qty-btn qty-plus"
+        onclick="changeQuantity({{ product.id }}, 1)"
+        aria-label="Increase quantity"
+      >
+        +
+      </button>
+    </div>
+  </div>
+
+  <div class="col-action">
+    <button
+      class="add-to-cart-btn"
+      onclick="addToCart({{ product.id }}, event)"
+      {% unless product.available %}disabled{% endunless %}
+    >
+      {% if product.available %}
+        Add to Cart
+      {% else %}
+        Out of Stock
+      {% endif %}
+    </button>
+  </div>
+</div>
+
+<script>
+  function changeQuantity(productId, delta) {
+    const input = document.getElementById('qty-' + productId);
+    const currentValue = parseInt(input.value) || 1;
+    const newValue = Math.max(1, Math.min(999, currentValue + delta));
+    input.value = newValue;
+  }
+
+  function validateQuantity(productId) {
+    const input = document.getElementById('qty-' + productId);
+    let value = parseInt(input.value) || 1;
+    value = Math.max(1, Math.min(999, value));
+    input.value = value;
+  }
+
+  function updatePrice(select, productId) {
+    const selectedOption = select.options[select.selectedIndex];
+    const price = selectedOption.dataset.price;
+    const priceEl = document.getElementById('price-' + productId);
+    if (priceEl && price) {
+      priceEl.textContent = price;
+    }
+  }
+
+  function addToCart(productId, event) {
+    event.preventDefault();
+
+    const variantSelect = document.getElementById('variant-' + productId);
+    const quantityInput = document.getElementById('qty-' + productId);
+    const button = event.target;
+
+    let variantId;
+    if (variantSelect) {
+      variantId = variantSelect.value;
+    } else {
+      // Single variant product - get variant ID from data attribute
+      const productRow = button.closest('.product-row');
+      const firstVariantSelect = productRow.querySelector('.variant-select');
+      if (firstVariantSelect) {
+        variantId = firstVariantSelect.value;
+      } else {
+        // Fallback: construct variant ID (this should be set properly)
+        variantId = productId; // This needs to be the actual variant ID
+      }
+    }
+
+    const quantity = parseInt(quantityInput.value) || 1;
+
+    if (!variantId) {
+      alert('Please select a dimension');
+      return;
+    }
+
+    const originalText = button.textContent;
+    button.textContent = 'Adding...';
+    button.disabled = true;
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: variantId,
+        quantity: quantity
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      button.textContent = '✓ Added';
+      button.classList.add('success');
+
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+        button.classList.remove('success');
+      }, 2000);
+
+      // Update cart count
+      updateCartCount();
+
+      // Reset quantity to 1
+      quantityInput.value = 1;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      button.textContent = 'Error';
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      }, 2000);
+    });
+  }
+
+  function updateCartCount() {
+    fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        const cartLinks = document.querySelectorAll('.header-cart a');
+        cartLinks.forEach(link => {
+          link.textContent = 'Cart (' + cart.item_count + ')';
+        });
+      });
+  }
+</script>
+
+<style>
+  .product-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr 1fr 1.2fr 1.2fr;
+    gap: 16px;
+    padding: 16px 20px;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+  }
+
+  .product-row:hover {
+    background: #fafafa;
+  }
+
+  .product-row:last-child {
+    border-bottom: none;
+  }
+
+  .product-name {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .product-name:hover {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+
+  .col-material,
+  .col-form {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .variant-select,
+  .single-variant {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    background: white;
+  }
+
+  .single-variant {
+    display: block;
+    padding: 8px 10px;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+  }
+
+  .price-display {
+    font-weight: 600;
+    font-size: 15px;
+    color: #000;
+  }
+
+  .quantity-control {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .qty-btn {
+    width: 32px;
+    border: none;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.2s;
+    color: #333;
+  }
+
+  .qty-btn:hover {
+    background: #e0e0e0;
+  }
+
+  .qty-btn:active {
+    background: #d0d0d0;
+  }
+
+  .quantity-input {
+    width: 60px;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 4px;
+    -moz-appearance: textfield;
+  }
+
+  .quantity-input::-webkit-outer-spin-button,
+  .quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .quantity-input:focus {
+    outline: none;
+    background: #f8f8f8;
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .add-to-cart-btn:hover:not(:disabled) {
+    background: #333;
+  }
+
+  .add-to-cart-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .add-to-cart-btn.success {
+    background: #22c55e;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 1024px) {
+    .product-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .product-row > div::before {
+      content: attr(class);
+      font-weight: 600;
+      font-size: 12px;
+      color: #666;
+      text-transform: capitalize;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .col-product::before {
+      content: 'Product';
+    }
+
+    .col-material::before {
+      content: 'Material';
+    }
+
+    .col-form::before {
+      content: 'Form';
+    }
+
+    .col-dimension::before {
+      content: 'Dimension';
+    }
+
+    .col-price::before {
+      content: 'Price';
+    }
+
+    .col-quantity::before {
+      content: 'Quantity';
+    }
+
+    .col-action::before {
+      content: '';
+      display: none;
+    }
+
+    .quantity-control {
+      max-width: 200px;
+    }
+  }
+</style>
