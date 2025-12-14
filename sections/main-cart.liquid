@@ -7,16 +7,16 @@
       <a href="/" class="continue-shopping-btn">Continue Shopping</a>
     </div>
   {% else %}
-    <div class="cart-items">
-      <div class="cart-header">
-        <div class="cart-col-product">Product</div>
-        <div class="cart-col-price">Price</div>
-        <div class="cart-col-quantity">Quantity</div>
-        <div class="cart-col-total">Total</div>
-        <div class="cart-col-remove"></div>
-      </div>
+    <form action="/cart" method="post" id="cart-form">
+      <div class="cart-items">
+        <div class="cart-header">
+          <div class="cart-col-product">Product</div>
+          <div class="cart-col-price">Price</div>
+          <div class="cart-col-quantity">Quantity</div>
+          <div class="cart-col-total">Total</div>
+          <div class="cart-col-remove"></div>
+        </div>
 
-      <form action="/cart" method="post" id="cart-form">
         {% for item in cart.items %}
           <div class="cart-item" data-line-index="{{ forloop.index }}">
             <div class="cart-col-product">
@@ -74,33 +74,33 @@
             </div>
           </div>
         {% endfor %}
-      </form>
-    </div>
-
-    <div class="cart-footer">
-      <div class="cart-notes">
-        <label for="cart-note">Order Notes (Optional):</label>
-        <textarea
-          id="cart-note"
-          name="note"
-          placeholder="Special instructions for your order"
-        >{{ cart.note }}</textarea>
       </div>
 
-      <div class="cart-summary">
-        <div class="cart-subtotal">
-          <span>Subtotal:</span>
-          <strong>{{ cart.total_price | money }}</strong>
+      <div class="cart-footer">
+        <div class="cart-notes">
+          <label for="cart-note">Order Notes (Optional):</label>
+          <textarea
+            id="cart-note"
+            name="note"
+            placeholder="Special instructions for your order"
+          >{{ cart.note }}</textarea>
         </div>
-        <p class="cart-shipping-note">Shipping calculated at checkout</p>
 
-        <button type="submit" name="checkout" class="checkout-btn">
-          Proceed to Checkout
-        </button>
+        <div class="cart-summary">
+          <div class="cart-subtotal">
+            <span>Subtotal:</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+          <p class="cart-shipping-note">Shipping calculated at checkout</p>
 
-        <a href="/" class="continue-shopping-link">← Continue Shopping</a>
+          <button type="submit" name="checkout" class="checkout-btn">
+            Proceed to Checkout
+          </button>
+
+          <a href="/" class="continue-shopping-link">← Continue Shopping</a>
+        </div>
       </div>
-    </div>
+    </form>
   {% endif %}
 </div>
 

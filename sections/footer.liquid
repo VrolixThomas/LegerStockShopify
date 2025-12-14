@@ -1,6 +1,14 @@
 <footer class="footer">
   <div class="footer-content">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+    <div class="footer-contact">
+      <p class="footer-business-name">Legerstock Hendriks</p>
+      <p class="footer-contact-info">
+        <a href="tel:089657414">089/657414</a>
+        <span class="separator">|</span>
+        <a href="mailto:LEGERSTOCKHENDRIKS@GMAIL.COM">LEGERSTOCKHENDRIKS@GMAIL.COM</a>
+      </p>
+    </div>
+    <p class="footer-copyright">&copy; {{ 'now' | date: '%Y' }} Legerstock Hendriks</p>
   </div>
 </footer>
 
@@ -15,6 +23,44 @@
   .footer-content {
     max-width: 1200px;
     margin: 0 auto;
+  }
+
+  .footer-contact {
+    margin-bottom: 20px;
+  }
+
+  .footer-business-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .footer-contact-info {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .footer-contact-info a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .footer-contact-info a:hover {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+
+  .footer-contact-info .separator {
+    margin: 0 10px;
+    color: #999;
+  }
+
+  .footer-copyright {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
   }
 {% endstylesheet %}
 

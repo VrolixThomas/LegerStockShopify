@@ -1,7 +1,9 @@
 <header class="site-header">
   <div class="header-content">
     <div class="header-logo">
-      <a href="/">{{ shop.name }}</a>
+      <a href="https://legerstockhendriks.be" target="_blank" rel="noopener noreferrer">
+        <img src="{{ 'Logo-legerstock.jpg' | asset_url }}" alt="Legerstock Hendriks" class="logo-image">
+      </a>
     </div>
 
     <div class="header-cart">
@@ -27,10 +29,14 @@
   }
 
   .header-logo a {
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
+    display: block;
+    line-height: 0;
+  }
+
+  .logo-image {
+    height: 60px;
+    width: auto;
+    display: block;
   }
 
   .header-cart a {
