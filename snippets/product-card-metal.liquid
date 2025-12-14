@@ -18,7 +18,7 @@
   endfor
 %}
 
-<div class="product-row" data-material="{{ material }}" data-form="{{ form }}" data-product-id="{{ product.id }}">
+<div class="product-row" data-material="{{ material }}" data-form="{{ form }}" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
   <div class="col-product">
     <a href="{{ product.url }}" class="product-name">{{ product.title }}</a>
   </div>
@@ -131,26 +131,25 @@
     const variantSelect = document.getElementById('variant-' + productId);
     const quantityInput = document.getElementById('qty-' + productId);
     const button = event.target;
+    const productRow = button.closest('.product-row');
 
     let variantId;
+
+    // Try to get variant from select dropdown first
     if (variantSelect) {
       variantId = variantSelect.value;
     } else {
-      // Single variant product - get variant ID from data attribute
-      const productRow = button.closest('.product-row');
-      const firstVariantSelect = productRow.querySelector('.variant-select');
-      if (firstVariantSelect) {
-        variantId = firstVariantSelect.value;
-      } else {
-        // Fallback: construct variant ID (this should be set properly)
-        variantId = productId; // This needs to be the actual variant ID
-      }
+      // Single variant product - get from data attribute
+      variantId = productRow.dataset.variantId;
     }
 
     const quantity = parseInt(quantityInput.value) || 1;
 
+    console.log('Adding to cart:', { variantId, quantity, productId });
+
     if (!variantId) {
-      alert('Please select a dimension');
+      alert('Error: No variant ID found. Please refresh the page.');
+      console.error('Missing variant ID for product:', productId);
       return;
     }
 
@@ -168,8 +167,15 @@
         quantity: quantity
       })
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log('Cart add response status:', response.status);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log('Cart add success:', data);
       button.textContent = '✓ Added';
       button.classList.add('success');
 
@@ -186,8 +192,8 @@
       quantityInput.value = 1;
     })
     .catch(error => {
-      console.error('Error:', error);
-      button.textContent = 'Error';
+      console.error('Cart add error:', error);
+      button.textContent = 'Error - Try Again';
       setTimeout(() => {
         button.textContent = originalText;
         button.disabled = false;
