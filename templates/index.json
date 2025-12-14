@@ -3,9 +3,9 @@
     "product_list": {
       "type": "product-list",
       "settings": {
-        "title": "Featured Products",
+        "title": "",
         "collection": "",
-        "products_to_show": 8
+        "products_to_show": 50
       }
     }
   },
