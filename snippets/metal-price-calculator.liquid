@@ -112,8 +112,11 @@
 </div>
 
 <script>
-// Pricing configuration (€ per kg)
-const PRICING_CONFIG = {
+// Google Sheets URL for dynamic pricing
+const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlavfG1h-6v7KtR7duck9TFT2pCTKJcmYE_ac5qo-lBS67BNlVoInnuQ5zHMsWpDUfrOIufydqy-Bl/pub?output=csv';
+
+// Pricing configuration (€ per kg) - fallback values if fetch fails
+let PRICING_CONFIG = {
   aluminium: { pricePerKg: 3.50, density: 2.7 }, // g/cm³
   iron: { pricePerKg: 2.20, density: 7.87 },
   steel: { pricePerKg: 2.50, density: 7.85 },
@@ -123,6 +126,60 @@ const PRICING_CONFIG = {
 
 // Minimum order surcharge
 const MINIMUM_ORDER = { threshold: 10, surcharge: 5 }; // Add €5 if order < €10
+
+// Fetch prices from Google Sheets
+async function fetchPricesFromGoogleSheets() {
+  try {
+    const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+    const csvText = await response.text();
+
+    // Parse CSV
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim());
+
+    // Find column indices (flexible matching)
+    const materialIndex = headers.findIndex(h => h.toLowerCase().includes('material'));
+    const priceIndex = headers.findIndex(h => {
+      const lower = h.toLowerCase();
+      return lower.includes('price') || lower.includes('priceperkg');
+    });
+    const densityIndex = headers.findIndex(h => h.toLowerCase().includes('density'));
+
+    if (materialIndex === -1 || priceIndex === -1 || densityIndex === -1) {
+      console.warn('Calculator: Google Sheets columns not found. Using fallback prices.');
+      return;
+    }
+
+    // Parse data rows
+    const newConfig = {};
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim());
+      if (values.length >= 3) {
+        const material = values[materialIndex].toLowerCase();
+        const pricePerKg = parseFloat(values[priceIndex]);
+        const density = parseFloat(values[densityIndex]);
+
+        if (material && !isNaN(pricePerKg) && !isNaN(density)) {
+          newConfig[material] = { pricePerKg, density };
+        }
+      }
+    }
+
+    // Update pricing config if we got valid data
+    if (Object.keys(newConfig).length > 0) {
+      PRICING_CONFIG = newConfig;
+      console.log('Calculator: Prices updated from Google Sheets', PRICING_CONFIG);
+    } else {
+      console.warn('Calculator: No valid data in Google Sheets. Using fallback prices.');
+    }
+  } catch (error) {
+    console.error('Calculator: Failed to fetch prices from Google Sheets:', error);
+    console.log('Calculator: Using fallback prices');
+  }
+}
+
+// Load prices on page load
+fetchPricesFromGoogleSheets();
 
 // Dimension field templates for different forms
 const DIMENSION_TEMPLATES = {
