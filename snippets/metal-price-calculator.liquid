@@ -427,23 +427,15 @@ function addCalculatedToCart() {
   const material = document.getElementById('calc-material');
   const form = document.getElementById('calc-form');
   const quantity = parseInt(document.getElementById('calc-quantity').value) || 1;
-  const unitPrice = document.getElementById('calc-unit-price').textContent;
-  const weight = document.getElementById('calc-weight').textContent;
+
+  // Get values from summary section
+  const unitPrice = document.getElementById('summary-unit-price').textContent;
+  const totalPrice = document.getElementById('summary-total-price').textContent;
+  const weight = document.getElementById('summary-weight').textContent;
+  const dimensions = document.getElementById('summary-dimensions').textContent;
 
   const materialText = material.options[material.selectedIndex].text;
   const formText = form.options[form.selectedIndex].text;
-
-  // Collect dimension values
-  const formSelect = document.getElementById('calc-form');
-  const calcType = formSelect.options[formSelect.selectedIndex].dataset.calcType;
-  const template = DIMENSION_TEMPLATES[calcType];
-
-  let dimensionString = '';
-  template.forEach(field => {
-    const input = document.getElementById(`calc-${field.id}`);
-    dimensionString += `${field.label}: ${input.value}mm, `;
-  });
-  dimensionString = dimensionString.slice(0, -2); // Remove trailing comma
 
   const button = document.getElementById('calc-add-to-cart');
   const originalText = button.textContent;
@@ -455,12 +447,18 @@ function addCalculatedToCart() {
   // in Shopify and use its variant ID. The custom details will be added as line item properties.
   // For now, this shows an alert. You'll need to replace CUSTOM_PRODUCT_VARIANT_ID with actual ID.
 
-  alert(`Custom Order Details:\n\nMaterial: ${materialText}\nForm: ${formText}\nDimensions: ${dimensionString}\nWeight: ${weight}\nUnit Price: ${unitPrice}\nQuantity: ${quantity}\n\nTo enable cart functionality, create a "Custom Order" product in Shopify and update the calculator script with its variant ID.`);
+  alert(`Custom Order Added!\n\nMaterial: ${materialText}\nForm: ${formText}\nDimensions: ${dimensions}\nWeight: ${weight}\nUnit Price: ${unitPrice}\nQuantity: ${quantity}\nTotal: ${totalPrice}\n\nTo enable actual cart functionality, create a "Custom Order" product in Shopify and update the calculator script with its variant ID.`);
 
   button.textContent = originalText;
   button.disabled = false;
 
-  /* Uncomment and configure this when you have a Custom Order product set up:
+  /* To enable actual cart functionality:
+
+  1. Create a "Custom Order" product in Shopify
+  2. Get its variant ID
+  3. Replace 'YOUR_VARIANT_ID_HERE' below with the actual ID
+  4. Comment out the alert above
+  5. Uncomment this code:
 
   const CUSTOM_PRODUCT_VARIANT_ID = 'YOUR_VARIANT_ID_HERE';
 
@@ -475,9 +473,10 @@ function addCalculatedToCart() {
       properties: {
         'Material': materialText,
         'Form': formText,
-        'Dimensions': dimensionString,
+        'Dimensions': dimensions,
         'Weight': weight,
-        'Unit Price': unitPrice
+        'Unit Price': unitPrice,
+        'Total Price': totalPrice
       }
     })
   })
@@ -489,10 +488,10 @@ function addCalculatedToCart() {
       button.disabled = false;
     }, 2000);
 
-    // Update cart count
-    if (typeof updateCartCount === 'function') {
-      updateCartCount();
-    }
+    // Refresh page to update cart count
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   })
   .catch(error => {
     console.error('Error:', error);
