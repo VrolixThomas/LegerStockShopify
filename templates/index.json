@@ -1,5 +1,15 @@
 {
   "sections": {
+    "custom_size_calculator": {
+      "type": "custom-size-calculator",
+      "settings": {
+        "heading": "Need a Custom Size?",
+        "subheading": "Calculate the price for your exact dimensions instantly",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 36,
+        "padding-block-end": 36
+      }
+    },
     "product_list": {
       "type": "product-list",
       "settings": {
@@ -9,5 +19,5 @@
       }
     }
   },
-  "order": ["product_list"]
+  "order": ["custom_size_calculator", "product_list"]
 }
