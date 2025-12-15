@@ -8,84 +8,107 @@
 {% endcomment %}
 
 <div class="metal-calculator">
-  <div class="metal-calculator__header">
-    <h3 class="metal-calculator__title">Custom Size Calculator</h3>
-    <p class="metal-calculator__subtitle">Get instant pricing for your custom dimensions</p>
+  <!-- Step 1: Material & Form -->
+  <div class="calc-step">
+    <div class="calc-step-header">
+      <div class="calc-step-number">1</div>
+      <h3 class="calc-step-title">Material & Form</h3>
+    </div>
+    <div class="calc-step-content">
+      <div class="calc-field">
+        <label for="calc-material" class="calc-label">Material</label>
+        <select id="calc-material" class="calc-input calc-select">
+          <option value="">Select Material</option>
+          <option value="aluminium" data-price="3.50" data-density="2.7">Aluminium</option>
+          <option value="iron" data-price="2.20" data-density="7.87">Iron</option>
+          <option value="steel" data-price="2.50" data-density="7.85">Steel</option>
+          <option value="inox" data-price="5.50" data-density="8.00">Stainless Steel (Inox)</option>
+          <option value="copper" data-price="8.50" data-density="8.96">Copper</option>
+        </select>
+      </div>
+
+      <div class="calc-field">
+        <label for="calc-form" class="calc-label">Form/Shape</label>
+        <select id="calc-form" class="calc-input calc-select">
+          <option value="">Select Form</option>
+          <option value="flat" data-calc-type="area">Flat Sheet</option>
+          <option value="tube" data-calc-type="tube">Tube (Square/Rectangular)</option>
+          <option value="round" data-calc-type="round">Round Bar</option>
+          <option value="l-shape" data-calc-type="l-shape">L-Shape Angle</option>
+          <option value="t-shape" data-calc-type="t-shape">T-Shape</option>
+          <option value="square" data-calc-type="square-bar">Square Bar</option>
+        </select>
+      </div>
+    </div>
   </div>
 
-  <div class="metal-calculator__body">
-    <!-- Material Selection -->
-    <div class="calc-field">
-      <label for="calc-material" class="calc-label">Material</label>
-      <select id="calc-material" class="calc-input calc-select">
-        <option value="">Select Material</option>
-        <option value="aluminium" data-price="3.50" data-density="2.7">Aluminium</option>
-        <option value="iron" data-price="2.20" data-density="7.87">Iron</option>
-        <option value="steel" data-price="2.50" data-density="7.85">Steel</option>
-        <option value="inox" data-price="5.50" data-density="8.00">Stainless Steel (Inox)</option>
-        <option value="copper" data-price="8.50" data-density="8.96">Copper</option>
-      </select>
-      <small class="calc-hint">Select the material type</small>
+  <!-- Step 2: Dimensions -->
+  <div class="calc-step" id="dimensions-step" style="display: none;">
+    <div class="calc-step-header">
+      <div class="calc-step-number">2</div>
+      <h3 class="calc-step-title">Dimensions</h3>
     </div>
-
-    <!-- Form/Shape Selection -->
-    <div class="calc-field">
-      <label for="calc-form" class="calc-label">Form/Shape</label>
-      <select id="calc-form" class="calc-input calc-select">
-        <option value="">Select Form</option>
-        <option value="flat" data-calc-type="area">Flat Sheet</option>
-        <option value="tube" data-calc-type="tube">Tube (Square/Rectangular)</option>
-        <option value="round" data-calc-type="round">Round Bar</option>
-        <option value="l-shape" data-calc-type="l-shape">L-Shape Angle</option>
-        <option value="t-shape" data-calc-type="t-shape">T-Shape</option>
-        <option value="square" data-calc-type="square-bar">Square Bar</option>
-      </select>
-      <small class="calc-hint">Select the form or shape</small>
-    </div>
-
-    <!-- Dynamic Dimension Fields -->
-    <div id="dimension-fields" class="dimension-fields" style="display: none;">
-      <!-- Fields will be dynamically inserted here -->
-    </div>
-
-    <!-- Quantity -->
-    <div class="calc-field" id="quantity-field" style="display: none;">
-      <label for="calc-quantity" class="calc-label">Quantity</label>
-      <div class="calc-quantity-control">
-        <button type="button" class="calc-qty-btn" onclick="changeCalcQuantity(-1)">−</button>
-        <input type="number" id="calc-quantity" class="calc-input calc-quantity-input" value="1" min="1" max="9999">
-        <button type="button" class="calc-qty-btn" onclick="changeCalcQuantity(1)">+</button>
+    <div class="calc-step-content">
+      <div id="dimension-fields" class="dimension-fields-grid">
+        <!-- Fields will be dynamically inserted here -->
       </div>
-      <small class="calc-hint">Number of pieces</small>
     </div>
+  </div>
 
-    <!-- Price Display -->
-    <div class="calc-result" id="calc-result" style="display: none;">
-      <div class="calc-result__details">
-        <div class="calc-detail-row">
-          <span class="calc-detail-label">Unit Price:</span>
-          <span class="calc-detail-value" id="calc-unit-price">€0.00</span>
+  <!-- Step 3: Quantity -->
+  <div class="calc-step" id="quantity-step" style="display: none;">
+    <div class="calc-step-header">
+      <div class="calc-step-number">3</div>
+      <h3 class="calc-step-title">Quantity</h3>
+    </div>
+    <div class="calc-step-content">
+      <div class="calc-field">
+        <label for="calc-quantity" class="calc-label">Quantity</label>
+        <input type="number" id="calc-quantity" class="calc-input" value="1" min="1" max="9999">
+      </div>
+      <button type="button" class="calc-calculate-btn" onclick="calculatePrice()">Calculate Price</button>
+    </div>
+  </div>
+
+  <!-- Your Selection Summary -->
+  <div class="calc-summary" id="calc-summary" style="display: none;">
+    <h3 class="calc-summary-title">Your Selection</h3>
+    <div class="calc-summary-content">
+      <p class="calc-summary-product" id="summary-product">-</p>
+
+      <div class="calc-summary-details">
+        <div class="calc-summary-row">
+          <span class="calc-summary-label">Quantity:</span>
+          <span class="calc-summary-value" id="summary-quantity">-</span>
         </div>
-        <div class="calc-detail-row">
-          <span class="calc-detail-label">Weight:</span>
-          <span class="calc-detail-value" id="calc-weight">0 kg</span>
+        <div class="calc-summary-row">
+          <span class="calc-summary-label">Dimensions:</span>
+          <span class="calc-summary-value" id="summary-dimensions">-</span>
         </div>
-        <div class="calc-detail-row calc-total-row">
-          <span class="calc-detail-label">Total Price:</span>
-          <span class="calc-detail-value calc-total-price" id="calc-total-price">€0.00</span>
+        <div class="calc-summary-row">
+          <span class="calc-summary-label">Total Weight:</span>
+          <span class="calc-summary-value" id="summary-weight">-</span>
+        </div>
+        <div class="calc-summary-row">
+          <span class="calc-summary-label">Price/Each:</span>
+          <span class="calc-summary-value" id="summary-unit-price">-</span>
+        </div>
+        <div class="calc-summary-row calc-summary-total">
+          <span class="calc-summary-label">Total Price*:</span>
+          <span class="calc-summary-value" id="summary-total-price">-</span>
         </div>
       </div>
 
-      <button type="button" class="calc-add-to-cart-btn" id="calc-add-to-cart" onclick="addCalculatedToCart()">
-        Add Custom Size to Cart
+      <button type="button" class="calc-add-to-cart-btn" onclick="addCalculatedToCart()">
+        Add To Cart
       </button>
 
-      <small class="calc-note">Custom orders may require additional processing time</small>
+      <small class="calc-note">*Shipping costs calculated in the shopping cart</small>
     </div>
-
-    <!-- Error Message -->
-    <div class="calc-error" id="calc-error" style="display: none;"></div>
   </div>
+
+  <!-- Error Message -->
+  <div class="calc-error" id="calc-error" style="display: none;"></div>
 </div>
 
 <script>
@@ -180,22 +203,26 @@ function calculateVolume(form, dimensions) {
 
 // Update dimension fields based on selected form
 function updateDimensionFields() {
+  const materialSelect = document.getElementById('calc-material');
   const formSelect = document.getElementById('calc-form');
   const selectedOption = formSelect.options[formSelect.selectedIndex];
   const calcType = selectedOption.dataset.calcType;
   const fieldsContainer = document.getElementById('dimension-fields');
-  const quantityField = document.getElementById('quantity-field');
+  const dimensionsStep = document.getElementById('dimensions-step');
+  const quantityStep = document.getElementById('quantity-step');
+  const summary = document.getElementById('calc-summary');
 
-  if (!calcType) {
-    fieldsContainer.style.display = 'none';
-    quantityField.style.display = 'none';
-    hideResult();
+  // Hide subsequent steps if material or form not selected
+  if (!materialSelect.value || !calcType) {
+    dimensionsStep.style.display = 'none';
+    quantityStep.style.display = 'none';
+    summary.style.display = 'none';
     return;
   }
 
   const template = DIMENSION_TEMPLATES[calcType];
   if (!template) {
-    fieldsContainer.style.display = 'none';
+    dimensionsStep.style.display = 'none';
     return;
   }
 
@@ -212,16 +239,15 @@ function updateDimensionFields() {
           placeholder="${field.placeholder}"
           ${field.step ? `step="${field.step}"` : ''}
           min="0.1"
-          oninput="calculatePrice()"
         >
       </div>
     `;
   });
 
   fieldsContainer.innerHTML = html;
-  fieldsContainer.style.display = 'block';
-  quantityField.style.display = 'block';
-  hideResult();
+  dimensionsStep.style.display = 'block';
+  quantityStep.style.display = 'block';
+  summary.style.display = 'none';
 }
 
 // Calculate and display price
@@ -287,22 +313,34 @@ function calculatePrice() {
     totalPrice += MINIMUM_ORDER.surcharge;
   }
 
-  // Display results
-  displayResult(unitPrice, totalPrice, weightKg, quantity);
+  // Display results in summary
+  displaySummary(material, form, dimensions, unitPrice, totalPrice, weightKg, quantity, calcType);
   hideError();
 }
 
-// Display calculation result
-function displayResult(unitPrice, totalPrice, weight, quantity) {
-  document.getElementById('calc-unit-price').textContent = `€${unitPrice.toFixed(2)}`;
-  document.getElementById('calc-weight').textContent = `${weight.toFixed(2)} kg${quantity > 1 ? ' per piece' : ''}`;
-  document.getElementById('calc-total-price').textContent = `€${totalPrice.toFixed(2)}`;
-  document.getElementById('calc-result').style.display = 'block';
-}
+// Display calculation summary
+function displaySummary(material, form, dimensions, unitPrice, totalPrice, weight, quantity, calcType) {
+  const materialSelect = document.getElementById('calc-material');
+  const formSelect = document.getElementById('calc-form');
+  const materialText = materialSelect.options[materialSelect.selectedIndex].text;
+  const formText = formSelect.options[formSelect.selectedIndex].text;
 
-// Hide result
-function hideResult() {
-  document.getElementById('calc-result').style.display = 'none';
+  // Build dimension string
+  let dimString = '';
+  const template = DIMENSION_TEMPLATES[calcType];
+  template.forEach((field, index) => {
+    if (index > 0) dimString += ' × ';
+    dimString += `${dimensions[field.id]}mm`;
+  });
+
+  // Update summary
+  document.getElementById('summary-product').textContent = `${materialText}, ${formText}`;
+  document.getElementById('summary-quantity').textContent = quantity;
+  document.getElementById('summary-dimensions').textContent = dimString;
+  document.getElementById('summary-weight').textContent = `${weight.toFixed(2)} kg`;
+  document.getElementById('summary-unit-price').textContent = `€${unitPrice.toFixed(2)}`;
+  document.getElementById('summary-total-price').textContent = `€${totalPrice.toFixed(2)}`;
+  document.getElementById('calc-summary').style.display = 'block';
 }
 
 // Show error message
@@ -411,47 +449,66 @@ function addCalculatedToCart() {
 }
 
 // Event listeners
-document.getElementById('calc-material').addEventListener('change', calculatePrice);
+document.getElementById('calc-material').addEventListener('change', updateDimensionFields);
 document.getElementById('calc-form').addEventListener('change', updateDimensionFields);
-document.getElementById('calc-quantity').addEventListener('input', calculatePrice);
 </script>
 
 <style>
 .metal-calculator {
   background: #ffffff;
-  border: none;
-  border-radius: 16px;
-  padding: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0;
   margin: 0;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.metal-calculator__header {
-  margin-bottom: 32px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #f1f5f9;
-  text-align: center;
+/* Step styling */
+.calc-step {
+  padding: 32px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.metal-calculator__title {
-  font-size: 28px;
+.calc-step:last-of-type {
+  border-bottom: none;
+}
+
+.calc-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.calc-step-number {
+  width: 32px;
+  height: 32px;
+  background: #1f2937;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
-  margin: 0 0 8px 0;
-  color: #0f172a;
+  font-size: 16px;
+  flex-shrink: 0;
 }
 
-.metal-calculator__subtitle {
-  font-size: 15px;
-  color: #64748b;
+.calc-step-title {
+  font-size: 20px;
+  font-weight: 700;
   margin: 0;
+  color: #1f2937;
 }
 
-.metal-calculator__body {
+.calc-step-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
+/* Field styling */
 .calc-field {
   display: flex;
   flex-direction: column;
@@ -465,20 +522,19 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 }
 
 .calc-input {
-  padding: 14px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   font-size: 16px;
   transition: all 0.2s;
-  background: #ffffff;
-  color: #1e293b;
+  background: #f9fafb;
+  color: #111827;
 }
 
 .calc-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-  background: #fafbff;
+  border-color: #6b7280;
+  background: #ffffff;
 }
 
 .calc-select {
@@ -490,169 +546,139 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
   padding-right: 40px;
 }
 
-.calc-hint {
-  font-size: 12px;
-  color: #9ca3af;
-  font-style: italic;
-}
-
-.dimension-fields {
+.dimension-fields-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 24px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 12px;
-  border: 2px dashed #cbd5e1;
+  gap: 16px;
 }
 
-.calc-quantity-control {
-  display: flex;
-  align-items: stretch;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  overflow: hidden;
-  background: white;
-}
-
-.calc-qty-btn {
-  width: 48px;
-  border: none;
-  background: #f3f4f6;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  transition: background 0.2s;
-  color: #374151;
-}
-
-.calc-qty-btn:hover {
+/* Calculate button */
+.calc-calculate-btn {
+  width: 100%;
+  padding: 14px 24px;
   background: #e5e7eb;
+  color: #374151;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
-.calc-qty-btn:active {
+.calc-calculate-btn:hover {
   background: #d1d5db;
 }
 
-.calc-quantity-input {
-  flex: 1;
-  border: none;
-  border-left: 2px solid #e5e7eb;
-  border-right: 2px solid #e5e7eb;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px;
-  min-width: 80px;
+.calc-calculate-btn:active {
+  background: #9ca3af;
 }
 
-.calc-quantity-input::-webkit-outer-spin-button,
-.calc-quantity-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.calc-result {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  border: 3px solid #3b82f6;
-  border-radius: 16px;
+/* Summary section */
+.calc-summary {
   padding: 32px;
-  margin-top: 8px;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
 }
 
-.calc-result__details {
-  margin-bottom: 20px;
+.calc-summary-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: #1f2937;
 }
 
-.calc-detail-row {
+.calc-summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.calc-summary-product {
+  font-size: 16px;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.calc-summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calc-summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
-  border-bottom: 1px solid #93c5fd;
+  font-size: 14px;
 }
 
-.calc-detail-row:last-child {
-  border-bottom: none;
+.calc-summary-label {
+  color: #6b7280;
+  font-weight: 500;
 }
 
-.calc-total-row {
-  margin-top: 12px;
-  padding-top: 20px;
-  border-top: 3px solid #3b82f6;
-  border-bottom: none;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 20px;
-  margin: 16px -16px -8px -16px;
-  border-radius: 12px;
-}
-
-.calc-detail-label {
-  font-size: 15px;
-  color: #1e40af;
+.calc-summary-value {
+  color: #1f2937;
   font-weight: 600;
 }
 
-.calc-detail-value {
-  font-size: 17px;
+.calc-summary-total {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #d1d5db;
+  font-size: 16px;
+}
+
+.calc-summary-total .calc-summary-label,
+.calc-summary-total .calc-summary-value {
   font-weight: 700;
-  color: #1e3a8a;
+  color: #1f2937;
 }
 
-.calc-total-price {
-  font-size: 32px;
-  color: #1e3a8a;
-  font-weight: 800;
-}
-
+/* Add to Cart button */
 .calc-add-to-cart-btn {
   width: 100%;
-  padding: 18px 32px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
+  padding: 16px 24px;
+  background: #e5e7eb;
+  color: #1f2937;
   border: none;
-  border-radius: 12px;
+  border-radius: 48px;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  transition: all 0.3s;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-  margin-top: 8px;
+  transition: all 0.2s;
+  text-transform: none;
 }
 
 .calc-add-to-cart-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  background: #d1d5db;
 }
 
 .calc-add-to-cart-btn:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  background: #9ca3af;
 }
 
 .calc-add-to-cart-btn:disabled {
-  background: #94a3b8;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
 .calc-note {
   display: block;
   text-align: center;
-  margin-top: 16px;
-  font-size: 13px;
-  color: #1e40af;
-  font-style: italic;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .calc-error {
   background: #fee2e2;
-  border: 2px solid #ef4444;
-  border-radius: 8px;
+  border: 1px solid #f87171;
+  border-radius: 6px;
   padding: 16px;
+  margin: 16px 32px;
   color: #991b1b;
   font-weight: 500;
   font-size: 14px;
@@ -660,39 +686,24 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .metal-calculator {
+  .calc-step {
     padding: 24px 20px;
   }
 
-  .metal-calculator__title {
-    font-size: 22px;
+  .calc-step-title {
+    font-size: 18px;
   }
 
-  .metal-calculator__subtitle {
-    font-size: 14px;
+  .calc-summary {
+    padding: 24px 20px;
   }
 
-  .dimension-fields {
+  .dimension-fields-grid {
     grid-template-columns: 1fr;
-    padding: 20px 16px;
   }
 
-  .calc-result {
-    padding: 24px 20px;
-  }
-
-  .calc-total-price {
-    font-size: 26px;
-  }
-
-  .calc-add-to-cart-btn {
-    padding: 16px 24px;
-    font-size: 16px;
-  }
-
-  .calc-detail-label,
-  .calc-detail-value {
-    font-size: 14px;
+  .calc-error {
+    margin: 16px 20px;
   }
 }
 </style>
