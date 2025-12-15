@@ -28,11 +28,32 @@
                 {% if item.sku != blank %}
                   <span class="cart-item-sku">SKU: {{ item.sku }}</span>
                 {% endif %}
+
+                {%- comment -%} Show custom calculator properties {%- endcomment -%}
+                {% if item.properties.Material %}
+                  <div class="cart-item-custom-details">
+                    <div><strong>Material:</strong> {{ item.properties.Material }}</div>
+                    {% if item.properties.Form %}
+                      <div><strong>Form:</strong> {{ item.properties.Form }}</div>
+                    {% endif %}
+                    {% if item.properties.Dimensions %}
+                      <div><strong>Dimensions:</strong> {{ item.properties.Dimensions }}</div>
+                    {% endif %}
+                    {% if item.properties.Weight %}
+                      <div><strong>Weight:</strong> {{ item.properties.Weight }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
               </div>
             </div>
 
             <div class="cart-col-price">
-              {{ item.price | money }}
+              {%- comment -%} Use custom Unit Price if available, otherwise use item price {%- endcomment -%}
+              {% if item.properties['Unit Price'] %}
+                {{ item.properties['Unit Price'] }}
+              {% else %}
+                {{ item.price | money }}
+              {% endif %}
             </div>
 
             <div class="cart-col-quantity">
@@ -61,7 +82,12 @@
             </div>
 
             <div class="cart-col-total">
-              <strong>{{ item.line_price | money }}</strong>
+              {%- comment -%} Use custom Total Price if available, otherwise calculate from item price {%- endcomment -%}
+              {% if item.properties['Total Price'] %}
+                <strong>{{ item.properties['Total Price'] }}</strong>
+              {% else %}
+                <strong>{{ item.line_price | money }}</strong>
+              {% endif %}
             </div>
 
             <div class="cart-col-remove">
@@ -437,6 +463,29 @@
       grid-template-columns: 1fr;
       gap: 20px;
     }
+  }
+
+  /* Custom calculator details */
+  .cart-item-custom-details {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .cart-item-custom-details > div {
+    margin-bottom: 4px;
+  }
+
+  .cart-item-custom-details > div:last-child {
+    margin-bottom: 0;
+  }
+
+  .cart-item-custom-details strong {
+    color: #374151;
+    margin-right: 4px;
   }
 {% endstylesheet %}
 
