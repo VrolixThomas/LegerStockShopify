@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "custom-size-calculator",
+      "settings": {
+        "heading": "Custom Size Price Calculator",
+        "subheading": "Get instant pricing for your exact dimensions - select material, shape, and enter your measurements",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    }
+  },
+  "order": ["main"]
+}
