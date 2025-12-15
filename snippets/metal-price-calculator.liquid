@@ -419,42 +419,43 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 <style>
 .metal-calculator {
   background: #ffffff;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 24px;
-  margin: 24px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 16px;
+  padding: 40px;
+  margin: 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .metal-calculator__header {
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid #f3f4f6;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f1f5f9;
+  text-align: center;
 }
 
 .metal-calculator__title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   margin: 0 0 8px 0;
-  color: #111827;
+  color: #0f172a;
 }
 
 .metal-calculator__subtitle {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: 15px;
+  color: #64748b;
   margin: 0;
 }
 
 .metal-calculator__body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .calc-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .calc-label {
@@ -464,18 +465,20 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 }
 
 .calc-input {
-  padding: 12px 16px;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 15px;
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 16px;
   transition: all 0.2s;
   background: #ffffff;
+  color: #1e293b;
 }
 
 .calc-input:focus {
   outline: none;
   border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background: #fafbff;
 }
 
 .calc-select {
@@ -496,11 +499,11 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 .dimension-fields {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  padding: 20px;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px dashed #d1d5db;
+  gap: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
 }
 
 .calc-quantity-control {
@@ -550,11 +553,12 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 }
 
 .calc-result {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 2px solid #0ea5e9;
-  border-radius: 12px;
-  padding: 24px;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 3px solid #3b82f6;
+  border-radius: 16px;
+  padding: 32px;
   margin-top: 8px;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
 }
 
 .calc-result__details {
@@ -565,8 +569,8 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #bae6fd;
+  padding: 14px 0;
+  border-bottom: 1px solid #93c5fd;
 }
 
 .calc-detail-row:last-child {
@@ -574,65 +578,73 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 }
 
 .calc-total-row {
-  margin-top: 8px;
-  padding-top: 16px;
-  border-top: 2px solid #0ea5e9;
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 3px solid #3b82f6;
   border-bottom: none;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  margin: 16px -16px -8px -16px;
+  border-radius: 12px;
 }
 
 .calc-detail-label {
-  font-size: 14px;
-  color: #075985;
-  font-weight: 500;
+  font-size: 15px;
+  color: #1e40af;
+  font-weight: 600;
 }
 
 .calc-detail-value {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
-  color: #0c4a6e;
+  color: #1e3a8a;
 }
 
 .calc-total-price {
-  font-size: 24px;
-  color: #0c4a6e;
+  font-size: 32px;
+  color: #1e3a8a;
+  font-weight: 800;
 }
 
 .calc-add-to-cart-btn {
   width: 100%;
-  padding: 16px 24px;
-  background: #0ea5e9;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
-  transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(14, 165, 233, 0.2);
+  transition: all 0.3s;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+  margin-top: 8px;
 }
 
 .calc-add-to-cart-btn:hover:not(:disabled) {
-  background: #0284c7;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(14, 165, 233, 0.3);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
 }
 
 .calc-add-to-cart-btn:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
 }
 
 .calc-add-to-cart-btn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .calc-note {
   display: block;
   text-align: center;
-  margin-top: 12px;
-  font-size: 12px;
-  color: #075985;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #1e40af;
   font-style: italic;
 }
 
@@ -649,20 +661,38 @@ document.getElementById('calc-quantity').addEventListener('input', calculatePric
 /* Mobile responsive */
 @media (max-width: 768px) {
   .metal-calculator {
-    padding: 16px;
+    padding: 24px 20px;
   }
 
   .metal-calculator__title {
-    font-size: 20px;
+    font-size: 22px;
+  }
+
+  .metal-calculator__subtitle {
+    font-size: 14px;
   }
 
   .dimension-fields {
     grid-template-columns: 1fr;
-    padding: 16px;
+    padding: 20px 16px;
+  }
+
+  .calc-result {
+    padding: 24px 20px;
   }
 
   .calc-total-price {
-    font-size: 20px;
+    font-size: 26px;
+  }
+
+  .calc-add-to-cart-btn {
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+
+  .calc-detail-label,
+  .calc-detail-value {
+    font-size: 14px;
   }
 }
 </style>

@@ -5,51 +5,64 @@
   It renders the metal price calculator for custom size pricing.
 {% endcomment %}
 
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div
-  class="section section--page-width spacing-style color-{{ section.settings.color_scheme }}"
-  style="{% render 'spacing-style', settings: section.settings %}"
->
-  {% if section.settings.heading != blank %}
-    <div class="calculator-section-header">
-      <h2 class="calculator-section-title">{{ section.settings.heading }}</h2>
-      {% if section.settings.subheading != blank %}
-        <p class="calculator-section-subtitle">{{ section.settings.subheading }}</p>
-      {% endif %}
-    </div>
-  {% endif %}
+<div class="calculator-page-wrapper">
+  <div class="calculator-page-container">
+    {% if section.settings.heading != blank %}
+      <div class="calculator-section-header">
+        <h1 class="calculator-section-title">{{ section.settings.heading }}</h1>
+        {% if section.settings.subheading != blank %}
+          <p class="calculator-section-subtitle">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
 
-  {% render 'metal-price-calculator' %}
+    {% render 'metal-price-calculator' %}
+  </div>
 </div>
 
 <style>
-  .calculator-section-header {
-    text-align: center;
-    margin-bottom: 32px;
+  .calculator-page-wrapper {
+    min-height: calc(100vh - 200px);
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 40px 20px;
   }
 
-  .calculator-section-title {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0 0 12px 0;
-    color: #111827;
-  }
-
-  .calculator-section-subtitle {
-    font-size: 16px;
-    color: #6b7280;
-    margin: 0;
-    max-width: 600px;
+  .calculator-page-container {
+    max-width: 800px;
     margin: 0 auto;
   }
 
+  .calculator-section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .calculator-section-title {
+    font-size: 42px;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+  }
+
+  .calculator-section-subtitle {
+    font-size: 18px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+  }
+
   @media (max-width: 768px) {
+    .calculator-page-wrapper {
+      padding: 24px 16px;
+    }
+
     .calculator-section-title {
-      font-size: 24px;
+      font-size: 28px;
     }
 
     .calculator-section-subtitle {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 </style>
