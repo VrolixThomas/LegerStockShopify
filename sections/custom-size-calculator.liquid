@@ -1,0 +1,113 @@
+{% comment %}
+  Custom Size Calculator Section
+
+  This section can be added to product pages through the theme editor.
+  It renders the metal price calculator for custom size pricing.
+{% endcomment %}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--page-width spacing-style color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  {% if section.settings.heading != blank %}
+    <div class="calculator-section-header">
+      <h2 class="calculator-section-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="calculator-section-subtitle">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% render 'metal-price-calculator' %}
+</div>
+
+<style>
+  .calculator-section-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .calculator-section-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    color: #111827;
+  }
+
+  .calculator-section-subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .calculator-section-title {
+      font-size: 24px;
+    }
+
+    .calculator-section-subtitle {
+      font-size: 14px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Size Calculator",
+  "tag": "section",
+  "class": "custom-size-calculator-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Need a Custom Size?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Calculate the price for your exact dimensions instantly"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Size Calculator",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
